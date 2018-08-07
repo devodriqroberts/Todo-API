@@ -52,6 +52,8 @@ app.get('/todos', (req, res) => {
     });
 });
 
+
+//App start server
 app.listen(3000, () => {
     console.log('Started on port 3000');
 });
