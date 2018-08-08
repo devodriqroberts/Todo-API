@@ -5,6 +5,7 @@ const {
 } = require('mongodb');
 
 let app = express();
+let port = process.env.PORT || 3000
 
 //Require local files
 let {
@@ -81,8 +82,8 @@ app.get('/todos/:id', (req, res) => {
 
 
 //App start server
-app.listen(3000, () => {
-    console.log('Started on port 3000');
+app.listen(port, () => {
+    console.log(`Started up at port ${port}`);
 });
 
 module.exports = {
