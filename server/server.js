@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const {
-    ObjectId
+    ObjectID
 } = require('mongodb');
 
 let app = express();
@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.post('/todos', (req, res) => {
     let todo = new Todo({
         text: req.body.text
-    })
+    });
 
     todo.save().then((result) => {
         console.log('Todo saved');
@@ -56,11 +56,11 @@ app.get('/todos', (req, res) => {
 });
 
 //GET /todos/123456
-app.get('/todos:id', (req, res) => {
-    let id = req.param.id;
+app.get('/todos/:id', (req, res) => {
+    let id = req.params.id;
 
     //Validate id 
-    if (!ObjectId.isValid(id)) {
+    if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
 
@@ -68,17 +68,16 @@ app.get('/todos:id', (req, res) => {
         if (!todo) {
             return res.status(404).send();
         }
+
         res.send({
             todo
-        }).catch((e) => {
-            res.status(400).send();
         });
+    }).catch((e) => {
+        res.status(400).send();
     });
-
-
-
-    req.send(req.param);
 });
+
+
 
 
 //App start server
