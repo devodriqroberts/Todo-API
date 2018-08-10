@@ -1,17 +1,27 @@
+require('/config/config');
+
 const express = require("express");
 const _ = require("lodash");
 const bodyParser = require("body-parser");
-const { ObjectID } = require("mongodb");
+const {
+  ObjectID
+} = require("mongodb");
 
 let app = express();
-let port = process.env.PORT || 3000;
+let port = process.env.PORT;
 
 //Require local files
-let { mongoose } = require("./db/mongoose");
+let {
+  mongoose
+} = require("./db/mongoose");
 
-let { Todo } = require("./models/todo");
+let {
+  Todo
+} = require("./models/todo");
 
-let { User } = require("./models/user");
+let {
+  User
+} = require("./models/user");
 
 //Middleware
 app.use(bodyParser.json());
@@ -111,14 +121,12 @@ app.patch("/todos/:id", (req, res) => {
   }
 
   Todo.findByIdAndUpdate(
-    id,
-    {
-      $set: body
-    },
-    {
-      new: true
-    }
-  )
+      id, {
+        $set: body
+      }, {
+        new: true
+      }
+    )
     .then(todo => {
       if (!todo) {
         return res.status(404).send();
